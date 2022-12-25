@@ -79,4 +79,13 @@ public class Chests {
         }
         return true;
     }
+
+    public static boolean isLootChest(GuiScreen chest){
+        if(!(chest instanceof GuiChest))return false;
+        IInventory inventory = getChestInventory((GuiChest) chest);
+        if(inventory == null){
+            return true;
+        }
+        return inventory.getDisplayName().getUnformattedText().contains("Loot");
+    }
 }

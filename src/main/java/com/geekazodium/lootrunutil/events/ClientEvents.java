@@ -19,7 +19,7 @@ public class ClientEvents {
     @SubscribeEvent
     public void onGuiTick(GuiScreenEvent.DrawScreenEvent event){
         GuiScreen gui = event.getGui();
-        if(!(gui instanceof GuiChest)) return;
+        if(!isLootChest(gui)) return;
         if(!openedGuis.containsKey(gui)){
             openedGuis.put(gui, chestOpenDelayLimit +10);
         }else{
