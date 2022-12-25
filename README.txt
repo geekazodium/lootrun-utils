@@ -1,1 +1,0 @@
-This is a test version of the mod, this is to make sure it is possible to properly collect data on loot chests.
