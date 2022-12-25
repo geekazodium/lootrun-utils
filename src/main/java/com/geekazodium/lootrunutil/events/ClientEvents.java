@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.geekazodium.lootrunutil.LootrunUtil.logger;
+import static com.geekazodium.lootrunutil.core.Chests.chestOpenDelay;
 import static com.geekazodium.lootrunutil.core.Chests.handleChestOpen;
 
 public class ClientEvents {
@@ -23,9 +23,9 @@ public class ClientEvents {
     public void onGuiTick(GuiScreenEvent.DrawScreenEvent event){
         GuiScreen gui = event.getGui();
         if(!openedGuis.containsKey(gui)){
-            openedGuis.put(gui,20);
+            openedGuis.put(gui,chestOpenDelay+10);
         }else{
-            openedGuis.put(gui,Math.max(openedGuis.get(gui),10));
+            openedGuis.put(gui,Math.max(openedGuis.get(gui),9));
         }
     }
 
@@ -38,7 +38,7 @@ public class ClientEvents {
             if(integer<=0){
                 toRemove.add(guiScreen);
             }
-            if(integer == 15){
+            if(integer == 10){
                 if(guiScreen == null)return;
                 if(!(guiScreen instanceof GuiChest)) return;
                 handleChestOpen((GuiChest) guiScreen);
@@ -48,8 +48,18 @@ public class ClientEvents {
     }
 
     @SubscribeEvent
-    public void onInteract(GuiScreenEvent.ActionPerformedEvent event){
-        if(openedGuis.get(event.getGui())>=15){
+    public void onMouseInput(GuiScreenEvent.MouseInputEvent event){
+        Integer integer = openedGuis.get(event.getGui());
+        if(integer ==null)return;
+        if(integer >=10){
+            event.setCanceled(true);
+        }
+    }
+    @SubscribeEvent
+    public void onKeyInput(GuiScreenEvent.KeyboardInputEvent event){
+        Integer integer = openedGuis.get(event.getGui());
+        if(integer == null)return;
+        if(integer >=10){
             event.setCanceled(true);
         }
     }

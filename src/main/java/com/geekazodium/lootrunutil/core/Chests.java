@@ -17,6 +17,8 @@ import java.util.HashMap;
 import static com.geekazodium.lootrunutil.LootrunUtil.logger;
 
 public class Chests {
+    public static int chestOpenDelay = 10; // TODO: 12/25/2022 Make setting to allow adjusting this delay
+    public static boolean logChestData = false; // TODO: 12/25/2022 add setting for this 
     public static void handleChestOpen(GuiChest inventory) {
         IInventory chestInventory = getChestInventory(inventory);
         EntityPlayer player = Minecraft.getMinecraft().player;
@@ -33,15 +35,15 @@ public class Chests {
 
     public static int getUnidentifiedCount(IInventory inventory) {
         int unidentifiedCounter = 0;
-        logger.info("----chest data start----");
+        if(logChestData)logger.info("----chest data start----");
         for (int i = 0;i<inventory.getSizeInventory();i++) {
             ItemStack itemStack = inventory.getStackInSlot(i);
-            logger.info(itemStack.getDisplayName());
+            if(logChestData)logger.info(itemStack.getDisplayName());
             if(!itemStack.getItem().equals(Items.STONE_SHOVEL))continue;
             if(!itemStack.getDisplayName().contains("Unidentified"))continue;
             unidentifiedCounter+=1;
         }
-        logger.info("----chest data end----");
+        if(logChestData)logger.info("----chest data end----");
         return unidentifiedCounter;
     }
 
