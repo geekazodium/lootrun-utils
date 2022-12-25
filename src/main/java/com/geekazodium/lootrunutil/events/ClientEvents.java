@@ -52,7 +52,7 @@ public class ClientEvents {
     @SubscribeEvent
     public void onMouseInput(GuiScreenEvent.MouseInputEvent event){
         Integer integer = openedGuis.get(event.getGui());
-        if(integer ==null)return;
+        if(integer ==null||!isLootChest(event.getGui()))return;
         if(integer>=10){
             event.setCanceled(true);
         }
@@ -60,7 +60,7 @@ public class ClientEvents {
     @SubscribeEvent
     public void onKeyInput(GuiScreenEvent.KeyboardInputEvent event){
         Integer integer = openedGuis.get(event.getGui());
-        if(integer == null)return;
+        if(integer == null||!isLootChest(event.getGui()))return;
         if(integer>=10){
             event.setCanceled(true);
         }

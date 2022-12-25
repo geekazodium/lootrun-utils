@@ -84,8 +84,8 @@ public class Chests {
         if(!(chest instanceof GuiChest))return false;
         IInventory inventory = getChestInventory((GuiChest) chest);
         if(inventory == null){
-            return true;
+            return false;
         }
-        return inventory.getDisplayName().getUnformattedText().contains("Loot");
+        return inventory.getDisplayName().getUnformattedText().contains("Loot Chest");
     }
 }
